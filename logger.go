@@ -21,12 +21,12 @@ type LoggerI interface {
 	Init()
 	SetLevel(level Level)
 
-	Debug(msg string, fields ...*Field)
-	Info(msg string, fields ...*Field)
-	Warn(msg string, fields ...*Field)
-	Error(msg string, fields ...*Field)
-	Fatal(msg string, fields ...*Field)
-	Panic(msg string, fields ...*Field)
+	Debug(msg string, fields ...Field)
+	Info(msg string, fields ...Field)
+	Warn(msg string, fields ...Field)
+	Error(msg string, fields ...Field)
+	Fatal(msg string, fields ...Field)
+	Panic(msg string, fields ...Field)
 }
 
 type Logger struct {
@@ -53,7 +53,7 @@ func (l *Logger) SetLevel(level Level) {
 	l.logger.SetLevel(level)
 }
 
-func (l *Logger) Debug(msg string, fields ...*Field) {
+func (l *Logger) Debug(msg string, fields ...Field) {
 	if l.logger == nil {
 		return
 	}
@@ -61,7 +61,7 @@ func (l *Logger) Debug(msg string, fields ...*Field) {
 	l.logger.Debug(msg, fields...)
 }
 
-func (l *Logger) Info(msg string, fields ...*Field) {
+func (l *Logger) Info(msg string, fields ...Field) {
 	if l.logger == nil {
 		return
 	}
@@ -69,7 +69,7 @@ func (l *Logger) Info(msg string, fields ...*Field) {
 	l.logger.Info(msg, fields...)
 }
 
-func (l *Logger) Warn(msg string, fields ...*Field) {
+func (l *Logger) Warn(msg string, fields ...Field) {
 	if l.logger == nil {
 		return
 	}
@@ -77,7 +77,7 @@ func (l *Logger) Warn(msg string, fields ...*Field) {
 	l.logger.Warn(msg, fields...)
 }
 
-func (l *Logger) Error(msg string, fields ...*Field) {
+func (l *Logger) Error(msg string, fields ...Field) {
 	if l.logger == nil {
 		return
 	}
@@ -85,7 +85,7 @@ func (l *Logger) Error(msg string, fields ...*Field) {
 	l.logger.Error(msg, fields...)
 }
 
-func (l *Logger) Fatal(msg string, fields ...*Field) {
+func (l *Logger) Fatal(msg string, fields ...Field) {
 	if l.logger == nil {
 		return
 	}
@@ -93,7 +93,7 @@ func (l *Logger) Fatal(msg string, fields ...*Field) {
 	l.logger.Fatal(msg, fields...)
 }
 
-func (l *Logger) Panic(msg string, fields ...*Field) {
+func (l *Logger) Panic(msg string, fields ...Field) {
 	if l.logger == nil {
 		return
 	}

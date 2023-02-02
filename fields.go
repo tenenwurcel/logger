@@ -21,13 +21,31 @@ var (
 	ErrInvalidType = errors.New("invalid type")
 )
 
-type Field struct {
+type Field interface {
+	GetKey() string
+	GetType() FieldType
+	GetValue() interface{}
+}
+
+type field struct {
 	Key   string
 	Type  FieldType
 	Value interface{}
 }
 
-func NewField(key string, fieldType FieldType, value interface{}) (*Field, error) {
+func (f *field) GetKey() string {
+	return f.Key
+}
+
+func (f *field) GetType() FieldType {
+	return f.Type
+}
+
+func (f *field) GetValue() interface{} {
+	return f.Value
+}
+
+func NewField(key string, fieldType FieldType, value interface{}) (Field, error) {
 	switch fieldType {
 	case StringType:
 		if _, ok := value.(string); !ok {
@@ -67,7 +85,7 @@ func NewField(key string, fieldType FieldType, value interface{}) (*Field, error
 		}
 	}
 
-	return &Field{
+	return &field{
 		Key:   key,
 		Type:  fieldType,
 		Value: value,
