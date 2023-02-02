@@ -41,7 +41,7 @@ type field struct {
 }
 
 func String(key, value string) Field {
-	return field{
+	return &field{
 		Key:    key,
 		String: value,
 		Type:   StringType,
@@ -49,7 +49,7 @@ func String(key, value string) Field {
 }
 
 func Bool(key string, value bool) Field {
-	return field{
+	return &field{
 		Key:  key,
 		Bool: value,
 		Type: BoolType,
@@ -57,7 +57,7 @@ func Bool(key string, value bool) Field {
 }
 
 func Float32(key string, value float64) Field {
-	return field{
+	return &field{
 		Key:   key,
 		Float: value,
 		Type:  Float32Type,
@@ -65,7 +65,7 @@ func Float32(key string, value float64) Field {
 }
 
 func Float64(key string, value float64) Field {
-	return field{
+	return &field{
 		Key:   key,
 		Float: value,
 		Type:  Float64Type,
@@ -73,7 +73,7 @@ func Float64(key string, value float64) Field {
 }
 
 func Int(key string, value int64) Field {
-	return field{
+	return &field{
 		Key:  key,
 		Int:  value,
 		Type: IntType,
@@ -81,7 +81,7 @@ func Int(key string, value int64) Field {
 }
 
 func Int8(key string, value int64) Field {
-	return field{
+	return &field{
 		Key:  key,
 		Int:  value,
 		Type: Int8Type,
@@ -89,7 +89,7 @@ func Int8(key string, value int64) Field {
 }
 
 func Int16(key string, value int64) Field {
-	return field{
+	return &field{
 		Key:  key,
 		Int:  value,
 		Type: Int16Type,
@@ -97,7 +97,7 @@ func Int16(key string, value int64) Field {
 }
 
 func Int32(key string, value int64) Field {
-	return field{
+	return &field{
 		Key:  key,
 		Int:  value,
 		Type: Int32Type,
@@ -105,7 +105,7 @@ func Int32(key string, value int64) Field {
 }
 
 func Int64(key string, value int64) Field {
-	return field{
+	return &field{
 		Key:  key,
 		Int:  value,
 		Type: Int64Type,
@@ -113,57 +113,57 @@ func Int64(key string, value int64) Field {
 }
 
 func Interface(key string, value interface{}) Field {
-	return field{
+	return &field{
 		Key:       key,
 		Interface: value,
 		Type:      InterfaceType,
 	}
 }
 
-func (f field) ToString() string {
+func (f *field) ToString() string {
 	return f.String
 }
 
-func (f field) ToBool() bool {
+func (f *field) ToBool() bool {
 	return f.Bool
 }
 
-func (f field) ToFloat32() float32 {
+func (f *field) ToFloat32() float32 {
 	return float32(f.Float)
 }
 
-func (f field) ToFloat64() float64 {
+func (f *field) ToFloat64() float64 {
 	return f.Float
 }
 
-func (f field) ToInt() int {
+func (f *field) ToInt() int {
 	return int(f.Int)
 }
 
-func (f field) ToInt8() int8 {
+func (f *field) ToInt8() int8 {
 	return int8(f.Int)
 }
 
-func (f field) ToInt16() int16 {
+func (f *field) ToInt16() int16 {
 	return int16(f.Int)
 }
 
-func (f field) ToInt32() int32 {
+func (f *field) ToInt32() int32 {
 	return int32(f.Int)
 }
 
-func (f field) ToInt64() int64 {
+func (f *field) ToInt64() int64 {
 	return f.Int
 }
 
-func (f field) ToInterface() interface{} {
+func (f *field) ToInterface() interface{} {
 	return f.Interface
 }
 
-func (f field) GetKey() string {
+func (f *field) GetKey() string {
 	return f.Key
 }
 
-func (f field) GetType() FieldType {
+func (f *field) GetType() FieldType {
 	return f.Type
 }
