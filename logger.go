@@ -58,7 +58,7 @@ func (l *Logger) Debug(msg string, fields ...interface{}) {
 		return
 	}
 
-	l.logger.Debug(msg, fields)
+	l.logger.Debug(msg, fields...)
 }
 
 func (l *Logger) Info(msg string, fields ...interface{}) {
@@ -66,7 +66,7 @@ func (l *Logger) Info(msg string, fields ...interface{}) {
 		return
 	}
 
-	l.logger.Info(msg, fields)
+	l.logger.Info(msg, fields...)
 }
 
 func (l *Logger) Warn(msg string, fields ...interface{}) {
@@ -74,7 +74,7 @@ func (l *Logger) Warn(msg string, fields ...interface{}) {
 		return
 	}
 
-	l.logger.Warn(msg, fields)
+	l.logger.Warn(msg, fields...)
 }
 
 func (l *Logger) Error(msg string, fields ...interface{}) {
@@ -82,7 +82,7 @@ func (l *Logger) Error(msg string, fields ...interface{}) {
 		return
 	}
 
-	l.logger.Error(msg, fields)
+	l.logger.Error(msg, fields...)
 }
 
 func (l *Logger) Fatal(msg string, fields ...interface{}) {
@@ -90,7 +90,7 @@ func (l *Logger) Fatal(msg string, fields ...interface{}) {
 		return
 	}
 
-	l.logger.Fatal(msg, fields)
+	l.logger.Fatal(msg, fields...)
 }
 
 func (l *Logger) Panic(msg string, fields ...interface{}) {
@@ -98,26 +98,22 @@ func (l *Logger) Panic(msg string, fields ...interface{}) {
 		return
 	}
 
-	l.logger.Panic(msg, fields)
+	l.logger.Panic(msg, fields...)
 }
 
 func (l *Logger) WithContext(ctx context.Context) context.Context {
-	if l.logger == nil {
-		return ctx
-	}
-
-	ctx = context.WithValue(ctx, contextKey{}, l.logger)
+	ctx = context.WithValue(ctx, contextKey{}, l)
 
 	return ctx
 }
 
-func FromContext(ctx context.Context) LoggerI {
+func FromContext(ctx context.Context) *Logger {
 	if ctx == nil {
 		return nil
 	}
 
-	if li, ok := ctx.Value(contextKey{}).(LoggerI); ok {
-		return li
+	if li, ok := ctx.Value(contextKey{}).(Logger); ok {
+		return &li
 	}
 
 	return nil
