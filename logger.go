@@ -21,12 +21,12 @@ type LoggerI interface {
 	Init()
 	SetLevel(level Level)
 
-	Debug(msg string, fields ...Field)
-	Info(msg string, fields ...Field)
-	Warn(msg string, fields ...Field)
-	Error(msg string, fields ...Field)
-	Fatal(msg string, fields ...Field)
-	Panic(msg string, fields ...Field)
+	Debug(msg string, fields ...interface{})
+	Info(msg string, fields ...interface{})
+	Warn(msg string, fields ...interface{})
+	Error(msg string, fields ...interface{})
+	Fatal(msg string, fields ...interface{})
+	Panic(msg string, fields ...interface{})
 }
 
 type Logger struct {
@@ -53,52 +53,52 @@ func (l *Logger) SetLevel(level Level) {
 	l.logger.SetLevel(level)
 }
 
-func (l *Logger) Debug(msg string, fields ...Field) {
+func (l *Logger) Debug(msg string, fields ...interface{}) {
 	if l.logger == nil {
 		return
 	}
 
-	l.logger.Debug(msg, fields...)
+	l.logger.Debug(msg, fields)
 }
 
-func (l *Logger) Info(msg string, fields ...Field) {
+func (l *Logger) Info(msg string, fields ...interface{}) {
 	if l.logger == nil {
 		return
 	}
 
-	l.logger.Info(msg, fields...)
+	l.logger.Info(msg, fields)
 }
 
-func (l *Logger) Warn(msg string, fields ...Field) {
+func (l *Logger) Warn(msg string, fields ...interface{}) {
 	if l.logger == nil {
 		return
 	}
 
-	l.logger.Warn(msg, fields...)
+	l.logger.Warn(msg, fields)
 }
 
-func (l *Logger) Error(msg string, fields ...Field) {
+func (l *Logger) Error(msg string, fields ...interface{}) {
 	if l.logger == nil {
 		return
 	}
 
-	l.logger.Error(msg, fields...)
+	l.logger.Error(msg, fields)
 }
 
-func (l *Logger) Fatal(msg string, fields ...Field) {
+func (l *Logger) Fatal(msg string, fields ...interface{}) {
 	if l.logger == nil {
 		return
 	}
 
-	l.logger.Fatal(msg, fields...)
+	l.logger.Fatal(msg, fields)
 }
 
-func (l *Logger) Panic(msg string, fields ...Field) {
+func (l *Logger) Panic(msg string, fields ...interface{}) {
 	if l.logger == nil {
 		return
 	}
 
-	l.logger.Panic(msg, fields...)
+	l.logger.Panic(msg, fields)
 }
 
 func (l *Logger) WithContext(ctx context.Context) context.Context {
