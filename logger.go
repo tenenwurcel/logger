@@ -1,32 +1,20 @@
 package logger
 
-import "context"
-
-// Level defines log levels.
-type Level int8
-
-const (
-	DebugLevel Level = iota
-	InfoLevel
-	WarnLevel
-	ErrorLevel
-	FatalLevel
-	PanicLevel
-	NoLevel
-	Disabled
-	TraceLevel Level = -1
+import (
+	"context"
+	"io"
 )
 
 type LoggerI interface {
 	Init()
 	SetLevel(level Level)
+	SetOutput(io.Writer)
 
 	Debug(msg string, fields ...interface{})
 	Info(msg string, fields ...interface{})
 	Warn(msg string, fields ...interface{})
 	Error(msg string, fields ...interface{})
 	Fatal(msg string, fields ...interface{})
-	Panic(msg string, fields ...interface{})
 }
 
 type Logger struct {
@@ -45,10 +33,12 @@ func New(li LoggerI) *Logger {
 	return l
 }
 
-func (l *Logger) SetLevel(level Level) {
+func (l *Logger) SetLevel(levelString string) {
 	if l.logger == nil {
 		return
 	}
+
+	level := stringToLevel(levelString)
 
 	l.logger.SetLevel(level)
 }
@@ -91,14 +81,6 @@ func (l *Logger) Fatal(msg string, fields ...interface{}) {
 	}
 
 	l.logger.Fatal(msg, fields...)
-}
-
-func (l *Logger) Panic(msg string, fields ...interface{}) {
-	if l.logger == nil {
-		return
-	}
-
-	l.logger.Panic(msg, fields...)
 }
 
 func (l *Logger) WithContext(ctx context.Context) context.Context {
